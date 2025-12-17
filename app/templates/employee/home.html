@@ -1,0 +1,182 @@
+{% extends 'employee/base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container my-4">
+
+    <!-- 🔷 PAGE TITLE -->
+    <div class="mb-4 p-4 rounded shadow-sm bg-light">
+        <h1 class="fw-bold">🏢 Employee Management System</h1>
+        <p class="lead mb-0">
+            A secure and efficient platform to manage employee information.
+        </p>
+    </div>
+
+    <!-- 🔷 DASHBOARD CARDS -->
+    <div class="row g-4 mb-5">
+
+        <div class="col-md-3">
+            <div class="card shadow border-0 text-center bg-primary text-white">
+                <div class="card-body">
+                    <i class="bi bi-people-fill fs-1"></i>
+                    <h6 class="mt-2">Total Employees</h6>
+                    <h3>{{ total_employees }}</h3>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card shadow border-0 text-center bg-success text-white">
+                <div class="card-body">
+                    <i class="bi bi-laptop-fill fs-1"></i>
+                    <h6 class="mt-2">IT Department</h6>
+                    <h3>{{ it_count }}</h3>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card shadow border-0 text-center bg-warning text-dark">
+                <div class="card-body">
+                    <i class="bi bi-person-badge-fill fs-1"></i>
+                    <h6 class="mt-2">HR Department</h6>
+                    <h3>{{ hr_count }}</h3>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card shadow border-0 text-center bg-dark text-white">
+                <div class="card-body">
+                    <i class="bi bi-currency-rupee fs-1"></i>
+                    <h6 class="mt-2">Average Salary</h6>
+                    <h3>
+                        {% if avg_salary %}
+                            ₹ {{ avg_salary|floatformat:0 }}
+                        {% else %}
+                            ₹ 0
+                        {% endif %}
+                    </h3>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- 📊 DONUT CHART -->
+    <div class="card shadow mb-5 border-0">
+        <div class="card-body text-center">
+            <h4 class="mb-4">📊 Employees by Department</h4>
+            <canvas id="deptChart" style="max-width: 420px; margin:auto;"></canvas>
+        </div>
+    </div>
+
+    <!-- 🔹 CHART.JS CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <script>
+        const ctx = document.getElementById('deptChart');
+
+        new Chart(ctx, {
+            type: 'doughnut',
+            data: {
+                labels: {{ labels|safe }},
+                datasets: [{
+                    data: {{ data|safe }},
+                    backgroundColor: [
+                        '#3498db',
+                        '#2ecc71',
+                        '#f1c40f',
+                        '#e74c3c',
+                        '#9b59b6'
+                    ],
+                    borderWidth: 2
+                }]
+            },
+            options: {
+                responsive: true,
+                cutout: '65%',
+                plugins: {
+                    legend: {
+                        position: 'bottom'
+                    }
+                }
+            }
+        });
+    </script>
+
+    <!-- 🔷 PROJECT OVERVIEW -->
+    <div class="card shadow mb-4 border-0">
+        <div class="card-body">
+            <h4>📌 Project Overview</h4>
+            <h5 class="fw-bold">
+                Employee Management System to Increase Organization Productivity 👥
+            </h5>
+            <p class="mb-0">
+                Authorized users can securely add, update, view and delete
+                employee records using this system.
+            </p>
+        </div>
+    </div>
+
+    <!-- 🔷 HOW IT WORKS -->
+    <div class="card shadow mb-4 border-0 bg-light">
+        <div class="card-body">
+            <h4>⚙️ How This Project Works</h4>
+            <ol class="mb-0">
+                <li>👤 User logs in securely</li>
+                <li>🔐 Only authenticated users access the dashboard</li>
+                <li>➕ Add new employees</li>
+                <li>✏️ Update employee details</li>
+                <li>🗑️ Delete employees</li>
+                <li>🔍 Search & analyze data</li>
+            </ol>
+        </div>
+    </div>
+
+    <!-- 🔷 FEATURES -->
+    <div class="row text-center mb-4">
+
+        <div class="col-md-3">
+            <div class="p-3 rounded shadow-sm bg-secondary text-white">
+                🔐
+                <h6>User Authentication</h6>
+                <small>Secure access</small>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="p-3 rounded shadow-sm bg-secondary text-white">
+                👥
+                <h6>Employee Records</h6>
+                <small>CRUD operations</small>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="p-3 rounded shadow-sm bg-secondary text-white">
+                🔍
+                <h6>Search</h6>
+                <small>Quick filtering</small>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="p-3 rounded shadow-sm bg-secondary text-white">
+                📊
+                <h6>Analytics</h6>
+                <small>Live charts</small>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- 🔷 FOOTER -->
+    <div class="text-center p-3 rounded bg-dark text-white">
+        🚀 Built with Django, Bootstrap & SQLite  
+        <br>
+        <small>Designed for academic & real-world use</small>
+    </div>
+
+</div>
+{% endblock %}

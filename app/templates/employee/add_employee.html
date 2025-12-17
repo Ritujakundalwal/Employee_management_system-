@@ -1,0 +1,104 @@
+{% extends 'employee/base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container">
+
+    <!-- PAGE TITLE -->
+    <div class="d-flex align-items-center mb-4">
+        <h2 class="me-2">➕ Add Employee</h2>
+        <i class="bi bi-person-plus-fill fs-3 text-success"></i>
+    </div>
+
+    <!-- CARD -->
+    <div class="card shadow-lg border-0">
+        <div class="card-header bg-primary text-white">
+            <h5 class="mb-0">
+                🧑‍💼 Employee Details Form
+            </h5>
+        </div>
+
+        <div class="card-body">
+
+            <form method="post">
+                {% csrf_token %}
+
+                <!-- NAME -->
+                <div class="mb-3">
+                    <label class="form-label">
+                        👤 Full Name
+                    </label>
+                    <input type="text" name="name"
+                           class="form-control"
+                           placeholder="Enter employee name"
+                           required>
+                </div>
+
+                <!-- EMAIL -->
+                <div class="mb-3">
+                    <label class="form-label">
+                        📧 Email Address
+                    </label>
+                    <input type="email" name="email"
+                           class="form-control"
+                           placeholder="Enter email"
+                           required>
+                </div>
+
+                <!-- SALARY -->
+                <div class="mb-3">
+                    <label class="form-label">
+                        💰 Salary
+                    </label>
+                    <input type="number" name="salary"
+                           class="form-control"
+                           placeholder="Enter salary"
+                           required>
+                </div>
+
+                <!-- DEPARTMENT DROPDOWN -->
+                <div class="mb-3">
+                    <label class="form-label">
+                        🏢 Department
+                    </label>
+                    <select name="department" class="form-select" required>
+                        <option value="" disabled selected>
+                            🔽 Select Department
+                        </option>
+                        <option value="HR">👥 Human Resources</option>
+                        <option value="IT">💻 IT / Software</option>
+                        <option value="Finance">💰 Finance</option>
+                        <option value="Sales">📈 Sales</option>
+                        <option value="Marketing">📢 Marketing</option>
+                        <option value="Operations">⚙ Operations</option>
+                    </select>
+                </div>
+
+                <!-- DATE OF JOINING -->
+                <div class="mb-4">
+                    <label class="form-label">
+                        📅 Date of Joining
+                    </label>
+                    <input type="date" name="date_of_joining"
+                           class="form-control"
+                           required>
+                </div>
+
+                <!-- BUTTONS -->
+                <div class="d-flex gap-2">
+                    <button type="submit" class="btn btn-success">
+                        ✅ Add Employee
+                    </button>
+
+                    <a href="{% url 'employee_list' %}" class="btn btn-secondary">
+                        🔙 Back
+                    </a>
+                </div>
+
+            </form>
+
+        </div>
+    </div>
+
+</div>
+{% endblock %}
