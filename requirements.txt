@@ -1,6 +1,4 @@
-Python 3.13.0 
-asgiref  3.11.0
-Django   6.0
-pip      24.2
-sqlparse 0.5.4
-tzdata   2025.3
+asgiref==3.11.0
+Django==6.0
+sqlparse==0.5.4
+tzdata==2025.3
